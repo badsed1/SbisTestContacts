@@ -8,26 +8,81 @@
 
 /* Begin PBXBuildFile section */
 		A32D55E220C128F80005885D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32D55E120C128F80005885D /* AppDelegate.swift */; };
-		A32D55E420C128F80005885D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32D55E320C128F80005885D /* ViewController.swift */; };
-		A32D55E720C128F80005885D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A32D55E520C128F80005885D /* Main.storyboard */; };
 		A32D55EA20C128F80005885D /* SbisTestContacts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A32D55E820C128F80005885D /* SbisTestContacts.xcdatamodeld */; };
 		A32D55EC20C128F90005885D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A32D55EB20C128F90005885D /* Assets.xcassets */; };
 		A32D55EF20C128F90005885D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A32D55ED20C128F90005885D /* LaunchScreen.storyboard */; };
+		A32D561B20C40BA70005885D /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32D561A20C40BA70005885D /* MasterViewController.swift */; };
+		A32D561D20C40BD30005885D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32D561C20C40BD30005885D /* DetailViewController.swift */; };
+		A32D562F20C4180D0005885D /* DataSource.json in Resources */ = {isa = PBXBuildFile; fileRef = A32D562E20C4180D0005885D /* DataSource.json */; };
+		A32D563120C422880005885D /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32D563020C422870005885D /* CoreDataStack.swift */; };
+		A35D6BDF20C725A900B8ADA0 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35D6BDE20C725A900B8ADA0 /* AddViewController.swift */; };
+		A35D6BE120C7EF4200B8ADA0 /* AddViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35D6BE020C7EF4200B8ADA0 /* AddViewControllerExtension.swift */; };
+		A35D6BE420C80B9600B8ADA0 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35D6BE320C80B9600B8ADA0 /* UIViewControllerExtension.swift */; };
+		A3A0B4C820C524E00025E433 /* SbisTestContactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0B4C720C524E00025E433 /* SbisTestContactsTests.swift */; };
+		A3A0B4D020C52C380025E433 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0B4CF20C52C380025E433 /* FriendTableViewCell.swift */; };
+		A3A0B4D220C52C6A0025E433 /* ColleagueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0B4D120C52C6A0025E433 /* ColleagueTableViewCell.swift */; };
+		A3A0B4D420C52C8F0025E433 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0B4D320C52C8F0025E433 /* BaseTableViewCell.swift */; };
+		A3A0B4D620C5378F0025E433 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0B4D520C5378F0025E433 /* GradientView.swift */; };
+		A3DD383B20C6A82B00563339 /* Email+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD383520C6A82B00563339 /* Email+CoreDataClass.swift */; };
+		A3DD383C20C6A82B00563339 /* Email+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD383620C6A82B00563339 /* Email+CoreDataProperties.swift */; };
+		A3DD383D20C6A82B00563339 /* Human+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD383720C6A82B00563339 /* Human+CoreDataClass.swift */; };
+		A3DD383E20C6A82B00563339 /* Human+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD383820C6A82B00563339 /* Human+CoreDataProperties.swift */; };
+		A3DD383F20C6A82B00563339 /* PhoneNumber+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD383920C6A82B00563339 /* PhoneNumber+CoreDataClass.swift */; };
+		A3DD384020C6A82B00563339 /* PhoneNumber+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD383A20C6A82B00563339 /* PhoneNumber+CoreDataProperties.swift */; };
+		A3F05F8720C9371F003CD560 /* DetailViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F05F8620C9371F003CD560 /* DetailViewControllerExtension.swift */; };
+		A3F05F8920C95683003CD560 /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F05F8820C95683003CD560 /* TestModel.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A3A0B4CA20C524E00025E433 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A32D55D620C128F80005885D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A32D55DD20C128F80005885D;
+			remoteInfo = SbisTestContacts;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		A32D55DE20C128F80005885D /* SbisTestContacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SbisTestContacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A32D55E120C128F80005885D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A32D55E320C128F80005885D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		A32D55E620C128F80005885D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A32D55E920C128F80005885D /* SbisTestContacts.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SbisTestContacts.xcdatamodel; sourceTree = "<group>"; };
 		A32D55EB20C128F90005885D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A32D55EE20C128F90005885D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A32D55F020C128F90005885D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A32D561A20C40BA70005885D /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		A32D561C20C40BD30005885D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		A32D562E20C4180D0005885D /* DataSource.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DataSource.json; sourceTree = "<group>"; };
+		A32D563020C422870005885D /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		A35D6BDE20C725A900B8ADA0 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		A35D6BE020C7EF4200B8ADA0 /* AddViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewControllerExtension.swift; sourceTree = "<group>"; };
+		A35D6BE320C80B9600B8ADA0 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		A3A0B4C520C524E00025E433 /* SbisTestContactsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SbisTestContactsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3A0B4C720C524E00025E433 /* SbisTestContactsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SbisTestContactsTests.swift; sourceTree = "<group>"; };
+		A3A0B4C920C524E00025E433 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A3A0B4CF20C52C380025E433 /* FriendTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendTableViewCell.swift; sourceTree = "<group>"; };
+		A3A0B4D120C52C6A0025E433 /* ColleagueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColleagueTableViewCell.swift; sourceTree = "<group>"; };
+		A3A0B4D320C52C8F0025E433 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		A3A0B4D520C5378F0025E433 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		A3DD383520C6A82B00563339 /* Email+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Email+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A3DD383620C6A82B00563339 /* Email+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Email+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A3DD383720C6A82B00563339 /* Human+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Human+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A3DD383820C6A82B00563339 /* Human+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Human+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A3DD383920C6A82B00563339 /* PhoneNumber+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhoneNumber+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A3DD383A20C6A82B00563339 /* PhoneNumber+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhoneNumber+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A3F05F8620C9371F003CD560 /* DetailViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerExtension.swift; sourceTree = "<group>"; };
+		A3F05F8820C95683003CD560 /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		A32D55DB20C128F80005885D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A3A0B4C220C524E00025E433 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -41,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				A32D55E020C128F80005885D /* SbisTestContacts */,
+				A3A0B4C620C524E00025E433 /* SbisTestContactsTests */,
 				A32D55DF20C128F80005885D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				A32D55DE20C128F80005885D /* SbisTestContacts.app */,
+				A3A0B4C520C524E00025E433 /* SbisTestContactsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -57,14 +114,88 @@
 			isa = PBXGroup;
 			children = (
 				A32D55E120C128F80005885D /* AppDelegate.swift */,
-				A32D55E320C128F80005885D /* ViewController.swift */,
-				A32D55E520C128F80005885D /* Main.storyboard */,
+				A35D6BE220C7EF6800B8ADA0 /* Extensions */,
+				A32D561E20C40C030005885D /* Model */,
+				A32D561F20C40C0A0005885D /* View */,
+				A32D562020C40C110005885D /* Controller */,
+				A32D562D20C417850005885D /* CoreData */,
 				A32D55EB20C128F90005885D /* Assets.xcassets */,
 				A32D55ED20C128F90005885D /* LaunchScreen.storyboard */,
 				A32D55F020C128F90005885D /* Info.plist */,
-				A32D55E820C128F80005885D /* SbisTestContacts.xcdatamodeld */,
+				A32D562E20C4180D0005885D /* DataSource.json */,
 			);
 			path = SbisTestContacts;
+			sourceTree = "<group>";
+		};
+		A32D561E20C40C030005885D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A3F05F8820C95683003CD560 /* TestModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A32D561F20C40C0A0005885D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A3A0B4D520C5378F0025E433 /* GradientView.swift */,
+				A3A0B4D320C52C8F0025E433 /* BaseTableViewCell.swift */,
+				A3A0B4CF20C52C380025E433 /* FriendTableViewCell.swift */,
+				A3A0B4D120C52C6A0025E433 /* ColleagueTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A32D562020C40C110005885D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				A32D561A20C40BA70005885D /* MasterViewController.swift */,
+				A32D561C20C40BD30005885D /* DetailViewController.swift */,
+				A35D6BDE20C725A900B8ADA0 /* AddViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		A32D562D20C417850005885D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				A35D6BE720C86BA200B8ADA0 /* CoreDataStack */,
+				A32D55E820C128F80005885D /* SbisTestContacts.xcdatamodeld */,
+				A3DD383520C6A82B00563339 /* Email+CoreDataClass.swift */,
+				A3DD383620C6A82B00563339 /* Email+CoreDataProperties.swift */,
+				A3DD383720C6A82B00563339 /* Human+CoreDataClass.swift */,
+				A3DD383820C6A82B00563339 /* Human+CoreDataProperties.swift */,
+				A3DD383920C6A82B00563339 /* PhoneNumber+CoreDataClass.swift */,
+				A3DD383A20C6A82B00563339 /* PhoneNumber+CoreDataProperties.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		A35D6BE220C7EF6800B8ADA0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A35D6BE320C80B9600B8ADA0 /* UIViewControllerExtension.swift */,
+				A35D6BE020C7EF4200B8ADA0 /* AddViewControllerExtension.swift */,
+				A3F05F8620C9371F003CD560 /* DetailViewControllerExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		A35D6BE720C86BA200B8ADA0 /* CoreDataStack */ = {
+			isa = PBXGroup;
+			children = (
+				A32D563020C422870005885D /* CoreDataStack.swift */,
+			);
+			path = CoreDataStack;
+			sourceTree = "<group>";
+		};
+		A3A0B4C620C524E00025E433 /* SbisTestContactsTests */ = {
+			isa = PBXGroup;
+			children = (
+				A3A0B4C720C524E00025E433 /* SbisTestContactsTests.swift */,
+				A3A0B4C920C524E00025E433 /* Info.plist */,
+			);
+			path = SbisTestContactsTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,6 +218,24 @@
 			productReference = A32D55DE20C128F80005885D /* SbisTestContacts.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A3A0B4C420C524E00025E433 /* SbisTestContactsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A3A0B4CC20C524E00025E433 /* Build configuration list for PBXNativeTarget "SbisTestContactsTests" */;
+			buildPhases = (
+				A3A0B4C120C524E00025E433 /* Sources */,
+				A3A0B4C220C524E00025E433 /* Frameworks */,
+				A3A0B4C320C524E00025E433 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A3A0B4CB20C524E00025E433 /* PBXTargetDependency */,
+			);
+			name = SbisTestContactsTests;
+			productName = SbisTestContactsTests;
+			productReference = A3A0B4C520C524E00025E433 /* SbisTestContactsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -99,6 +248,10 @@
 				TargetAttributes = {
 					A32D55DD20C128F80005885D = {
 						CreatedOnToolsVersion = 9.4;
+					};
+					A3A0B4C420C524E00025E433 = {
+						CreatedOnToolsVersion = 9.4;
+						TestTargetID = A32D55DD20C128F80005885D;
 					};
 				};
 			};
@@ -116,6 +269,7 @@
 			projectRoot = "";
 			targets = (
 				A32D55DD20C128F80005885D /* SbisTestContacts */,
+				A3A0B4C420C524E00025E433 /* SbisTestContactsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -126,8 +280,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				A32D55EF20C128F90005885D /* LaunchScreen.storyboard in Resources */,
+				A32D562F20C4180D0005885D /* DataSource.json in Resources */,
 				A32D55EC20C128F90005885D /* Assets.xcassets in Resources */,
-				A32D55E720C128F80005885D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A3A0B4C320C524E00025E433 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +299,48 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A32D55E420C128F80005885D /* ViewController.swift in Sources */,
+				A3DD383B20C6A82B00563339 /* Email+CoreDataClass.swift in Sources */,
 				A32D55EA20C128F80005885D /* SbisTestContacts.xcdatamodeld in Sources */,
+				A35D6BE420C80B9600B8ADA0 /* UIViewControllerExtension.swift in Sources */,
+				A3A0B4D620C5378F0025E433 /* GradientView.swift in Sources */,
 				A32D55E220C128F80005885D /* AppDelegate.swift in Sources */,
+				A3DD383C20C6A82B00563339 /* Email+CoreDataProperties.swift in Sources */,
+				A35D6BE120C7EF4200B8ADA0 /* AddViewControllerExtension.swift in Sources */,
+				A3F05F8920C95683003CD560 /* TestModel.swift in Sources */,
+				A3A0B4D020C52C380025E433 /* FriendTableViewCell.swift in Sources */,
+				A3A0B4D420C52C8F0025E433 /* BaseTableViewCell.swift in Sources */,
+				A3A0B4D220C52C6A0025E433 /* ColleagueTableViewCell.swift in Sources */,
+				A32D561B20C40BA70005885D /* MasterViewController.swift in Sources */,
+				A3DD383D20C6A82B00563339 /* Human+CoreDataClass.swift in Sources */,
+				A3F05F8720C9371F003CD560 /* DetailViewControllerExtension.swift in Sources */,
+				A35D6BDF20C725A900B8ADA0 /* AddViewController.swift in Sources */,
+				A32D563120C422880005885D /* CoreDataStack.swift in Sources */,
+				A3DD384020C6A82B00563339 /* PhoneNumber+CoreDataProperties.swift in Sources */,
+				A32D561D20C40BD30005885D /* DetailViewController.swift in Sources */,
+				A3DD383E20C6A82B00563339 /* Human+CoreDataProperties.swift in Sources */,
+				A3DD383F20C6A82B00563339 /* PhoneNumber+CoreDataClass.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A3A0B4C120C524E00025E433 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A3A0B4C820C524E00025E433 /* SbisTestContactsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		A32D55E520C128F80005885D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A32D55E620C128F80005885D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
+/* Begin PBXTargetDependency section */
+		A3A0B4CB20C524E00025E433 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A32D55DD20C128F80005885D /* SbisTestContacts */;
+			targetProxy = A3A0B4CA20C524E00025E433 /* PBXContainerItemProxy */;
 		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
 		A32D55ED20C128F90005885D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -287,6 +473,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7LYU2M2ZEF;
 				INFOPLIST_FILE = SbisTestContacts/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -305,6 +492,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7LYU2M2ZEF;
 				INFOPLIST_FILE = SbisTestContacts/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -313,6 +501,46 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A3A0B4CD20C524E00025E433 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LYU2M2ZEF;
+				INFOPLIST_FILE = SbisTestContactsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = self.SbisTestContactsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SbisTestContacts.app/SbisTestContacts";
+			};
+			name = Debug;
+		};
+		A3A0B4CE20C524E00025E433 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LYU2M2ZEF;
+				INFOPLIST_FILE = SbisTestContactsTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = self.SbisTestContactsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SbisTestContacts.app/SbisTestContacts";
 			};
 			name = Release;
 		};
@@ -333,6 +561,15 @@
 			buildConfigurations = (
 				A32D55F420C128F90005885D /* Debug */,
 				A32D55F520C128F90005885D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A3A0B4CC20C524E00025E433 /* Build configuration list for PBXNativeTarget "SbisTestContactsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A3A0B4CD20C524E00025E433 /* Debug */,
+				A3A0B4CE20C524E00025E433 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

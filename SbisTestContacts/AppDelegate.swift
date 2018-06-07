@@ -10,16 +10,147 @@ import UIKit
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
-
-
+    
+    var didChooseDetail: Bool = false
+    
+    lazy var coreDataStack = CoreDataStack()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.makeKeyAndVisible()
+        
+        checkCoreDataContent()
+        
+        let splitViewController = UISplitViewController()
+        
+        let masterViewController = MasterViewController(style: UITableViewStyle.plain)
+        let detailViewController = DetailViewController()
+        
+        detailViewController.coreDataStack = coreDataStack
+        masterViewController.coreDataStack = coreDataStack
+        
+        let masterNavigationController = UINavigationController(rootViewController: masterViewController)
+        let detailNavigationController = UINavigationController(rootViewController: detailViewController)
+        
+//        masterViewController.presentDel = detailViewController
+        
+        splitViewController.viewControllers = [masterNavigationController, detailNavigationController]
+        splitViewController.delegate = self
+        
+        
+        splitViewController.preferredDisplayMode = .allVisible
+        splitViewController.preferredPrimaryColumnWidthFraction = 0.7
+        window?.rootViewController = splitViewController
+        
+        
         return true
     }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return !self.didChooseDetail
+    }
+    
+    func checkCoreDataContent() {
+        let fetchRequest = NSFetchRequest<Human>(entityName: "Human")
+        
+        do {
+            let count = try coreDataStack.context.fetch(fetchRequest).count
+            
+            if count == 0 {
+                print("CoreData is emty. Start JSON parsing")
+                jsonParsing()
+            } else {
+                print("CoreData does not empty")
+                
+            }
+        } catch let error as NSError {
+            print(error.userInfo)
+        }
+    }
 
+    func jsonParsing() {
+        let jsonUrl = Bundle.main.url(forResource: "DataSource", withExtension: ".json")
+        do {
+        let jsonData = try Data(contentsOf: jsonUrl!)
+            do {
+                let jsonDictionary = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String : AnyObject]
+                
+                let humanEntity = NSEntityDescription.entity(forEntityName: "Human", in: coreDataStack.context)
+                
+                let namesArray = jsonDictionary!["names"] as? NSArray
+                let surnames = jsonDictionary!["surnames"] as? NSArray
+                let secondNames = jsonDictionary!["secondnames"] as? NSArray
+                let isFreand = jsonDictionary!["isFreand"] as? NSArray
+                let bDays = jsonDictionary!["bDays"] as? NSArray
+                let photoName = jsonDictionary!["avatar"] as? String
+                let workState = jsonDictionary!["workState"] as? String
+                let phones = jsonDictionary!["phones"] as? NSArray
+                
+                for index in 0..<namesArray!.count {
+                    
+                    let human = Human(entity: humanEntity!, insertInto: coreDataStack.context)
+                    
+                    human.name = namesArray?[index] as? String
+                    human.surName = surnames?[index] as? String
+                    human.secondName = secondNames?[index] as? String
+                    human.isFreand = isFreand?[index] as! Bool
+                    human.bDay = bDays?[index] as? String
+                    
+                    let freandCheck = isFreand?[index] as! Bool
+                    
+                    let phoneObject = PhoneNumber(context: coreDataStack.context)
+                    let phoneObjectTwo = PhoneNumber(context: coreDataStack.context)
+                    
+                    
+                    if freandCheck {
+                        phoneObject.isWorkPhone = false
+                        phoneObject.phone = phones?[index] as? String
+                        phoneObjectTwo.isWorkPhone = false
+                        phoneObjectTwo.phone = nil
+                    } else {
+                        human.workState = workState
+                        phoneObject.isWorkPhone = true
+                        phoneObject.phone = "+79999999999"
+                        phoneObjectTwo.isWorkPhone = false
+                        phoneObjectTwo.phone = phones?[index] as? String
+                    }
+                    
+                    let phones = human.phoneNumbers?.mutableCopy() as? NSMutableOrderedSet
+                    
+                    phones?.add(phoneObject)
+                    phones?.add(phoneObjectTwo)
+                    
+                    human.phoneNumbers = phones
+                    
+                    
+                    let imageForData = UIImage(named: photoName!)
+                    let imgData = UIImageJPEGRepresentation(imageForData!, 1)
+                    human.avatarPhoto = imgData as NSData?
+                    
+                    let emailObject = Email(context: coreDataStack.context)
+                    emailObject.eMail = nil
+                    
+                    let emails = human.email?.mutableCopy() as? NSMutableOrderedSet
+                    emails?.add(emailObject)
+                    
+                    human.email = emails
+                }
+                
+                coreDataStack.saveContext()
+                print("Context saved")
+                
+            } catch let errorr as NSError {
+                print(errorr.localizedDescription)
+                print("FAIL")
+            }
+        } catch let error as NSError {
+            print(error.userInfo)
+        }
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -41,53 +172,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
-        self.saveContext()
+        coreDataStack.saveContext()
     }
-
-    // MARK: - Core Data stack
-
-    lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-        */
-        let container = NSPersistentContainer(name: "SbisTestContacts")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        return container
-    }()
-
-    // MARK: - Core Data Saving support
-
-    func saveContext () {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
-    }
-
 }
 

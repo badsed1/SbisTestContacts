@@ -1,0 +1,22 @@
+{
+    "names": [
+              "Evgeniy", "Sergey", "Dmitriy"
+              ],
+    "surnames" : [
+                  "Stadnik", "Bogdanov", "Popov"
+                  ],
+    "secondnames" : [
+                     "Dmitrievich", "Olegovich", "Egorovich"
+                     ],
+    "isFreand": [
+                 true, true, false
+                 ],
+    "avatar" : "profileImage",
+    "workState" : "Boss",
+    "phones" : [
+                "+79215541199", "+79523753625", "+79110077507"
+                ],
+    "bDays": [
+              "04.03.1989", "23.04.1959", "13.04.1989"
+              ]
+}
