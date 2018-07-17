@@ -44,6 +44,7 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         field.layer.cornerRadius = 5
         field.layer.masksToBounds = true
         field.delegate = self
+        field.textAlignment = .center
         return field
     }()
     
@@ -57,6 +58,7 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         field.layer.cornerRadius = 5
         field.layer.masksToBounds = true
         field.delegate = self
+        field.textAlignment = .center
         return field
     }()
     
@@ -70,11 +72,12 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         field.layer.cornerRadius = 5
         field.layer.masksToBounds = true
         field.delegate = self
+        field.textAlignment = .center
         return field
     }()
     
-    lazy var workPhoneTextField: UITextField = {
-        let phone = UITextField()
+    lazy var workPhoneTextField: VSTextField = {
+        let phone = VSTextField()
         if segmentControll.selectedSegmentIndex == 0 {
             phone.alpha = 0.0
         } else {
@@ -89,6 +92,8 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         phone.layer.cornerRadius = 5
         phone.layer.masksToBounds = true
         phone.delegate = self
+        phone.setFormatting("# (###) ###-##-##", replacementChar: "#")
+        phone.textAlignment = .center
         return phone
     }()
     
@@ -98,6 +103,8 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         
         if segmentControll.selectedSegmentIndex == 0 {
             detail.placeholder = "Ведите дату рождения:"
+            detail.inputView = self.datePicker
+            detail.inputAccessoryView = self.toolBar
         } else {
             detail.placeholder = "Введите должность:"
         }
@@ -107,11 +114,12 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         detail.layer.cornerRadius = 5
         detail.layer.masksToBounds = true
         detail.delegate = self
+        detail.textAlignment = .center
         return detail
     }()
     
-    lazy var phoneTextField: UITextField = {
-        let phone = UITextField()
+    lazy var phoneTextField: VSTextField = {
+        let phone = VSTextField()
         phone.translatesAutoresizingMaskIntoConstraints = false
         phone.keyboardType = .namePhonePad
         phone.textColor = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
@@ -121,6 +129,8 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         phone.layer.cornerRadius = 5
         phone.layer.masksToBounds = true
         phone.delegate = self
+        phone.setFormatting("# (###) ###-##-##", replacementChar: "#")
+        phone.textAlignment = .center
         return phone
     }()
     
@@ -136,6 +146,29 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         return img
     }()
     
+    lazy var datePicker: UIDatePicker = {
+       let datePick = UIDatePicker()
+        datePick.datePickerMode = .date
+        datePick.locale = Locale(identifier: "ru")
+        return datePick
+    }()
+    
+    @objc func handleShowDatePicker() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        detailTextField.text = dateFormatter.string(from: datePicker.date)
+        detailTextField.resignFirstResponder()
+    }
+    
+    let toolBar: UIToolbar = {
+        let bar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: 320, height: 44))
+        bar.tintColor = .gray
+        let doneButton = UIBarButtonItem(title: "Готово", style: UIBarButtonItemStyle.plain, target: self, action: #selector(handleShowDatePicker))
+        let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        bar.items = [space, doneButton]
+        return bar
+    }()
     
     @objc func handleGetImageAction() {
         chooseProfileImage()
@@ -206,20 +239,20 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         nameTextField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
         nameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         nameTextField.widthAnchor.constraint(equalToConstant: view.frame.size.width - 100).isActive = true
-        nameTextField.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        nameTextField.heightAnchor.constraint(equalToConstant: 24).isActive = true
         
         view.addSubview(secondNameTextField)
         
         secondNameTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 10).isActive = true
         secondNameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        secondNameTextField.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        secondNameTextField.heightAnchor.constraint(equalToConstant: 24).isActive = true
         secondNameTextField.widthAnchor.constraint(equalToConstant: view.frame.size.width - 100).isActive = true
         
         view.addSubview(surNameTextField)
         
         surNameTextField.topAnchor.constraint(equalTo: secondNameTextField.bottomAnchor, constant: 10).isActive = true
         surNameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        surNameTextField.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        surNameTextField.heightAnchor.constraint(equalToConstant: 24).isActive = true
         surNameTextField.widthAnchor.constraint(equalToConstant: view.frame.size.width - 100).isActive = true
         
         view.addSubview(detailTextField)
@@ -227,21 +260,21 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
         detailTextField.topAnchor.constraint(equalTo: surNameTextField.bottomAnchor, constant: 10).isActive = true
         detailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         detailTextField.widthAnchor.constraint(equalTo: surNameTextField.widthAnchor).isActive = true
-        detailTextField.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        detailTextField.heightAnchor.constraint(equalToConstant: 24).isActive = true
         
         view.addSubview(phoneTextField)
         
         phoneTextField.topAnchor.constraint(equalTo: detailTextField.bottomAnchor, constant: 10).isActive = true
         phoneTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         phoneTextField.widthAnchor.constraint(equalTo: nameTextField.widthAnchor).isActive = true
-        phoneTextField.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        phoneTextField.heightAnchor.constraint(equalToConstant: 24).isActive = true
         
         view.addSubview(workPhoneTextField)
         
         workPhoneTextField.topAnchor.constraint(equalTo: phoneTextField.bottomAnchor, constant: 10).isActive = true
         workPhoneTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         workPhoneTextField.widthAnchor.constraint(equalTo: nameTextField.widthAnchor).isActive = true
-        workPhoneTextField.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        workPhoneTextField.heightAnchor.constraint(equalToConstant: 24).isActive = true
         
         view.addSubview(saveButton)
         
@@ -279,42 +312,12 @@ class AddViewController: UIViewController, UIImagePickerControllerDelegate, UINa
     
     @objc func handleSaveAction() {
         createContact()
-        self.masterVC?.sorting()
+        switch segmentControll.selectedSegmentIndex {
+        case 0: self.masterVC?.sorting(by: "Friends")
+        case 1: self.masterVC?.sorting(by: "Work")
+        default: print(123)
+        }
         self.dismiss(animated: true, completion: nil)
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

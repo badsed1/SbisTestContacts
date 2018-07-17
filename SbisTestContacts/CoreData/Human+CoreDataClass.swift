@@ -2,7 +2,7 @@
 //  Human+CoreDataClass.swift
 //  SbisTestContacts
 //
-//  Created by Евгений Стадник on 05.06.2018.
+//  Created by Евгений Стадник on 12.07.2018.
 //  Copyright © 2018 Евгений Стадник. All rights reserved.
 //
 //

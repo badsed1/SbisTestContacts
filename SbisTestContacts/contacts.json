@@ -1,0 +1,52 @@
+ [
+  {
+  "name": "Sergey",
+  "lastname": "Bogdanov",
+  "group": "Friends",
+  "avatar": null,
+  "birthday": {
+      "year": 1959,
+      "month": 4,
+      "day": 23
+              },
+  "phone": "+79523753625"
+  },
+  {
+  "name": "Evgeniy",
+  "lastname": "Stadnik",
+  "middleame": "Dmitrievich",
+  "birthday": {
+          "year": 1989,
+          "month": 3,
+          "day": 4
+              },
+  "phone": "+7 (921) 554 11 99"
+  },
+  {
+  "name": "Dmitriy",
+  "middleame": "Egorovich",
+  "lastname": "Popov",
+  "group": "Work",
+  "avatar": "https://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg",
+  "birthday": {
+          "year": 1989,
+          "month": 3,
+          "day": 13
+              },
+  "phone": "8(911)007-75-07"
+  },
+  {
+  "name": "Ahmed",
+  "middleame": "Egorovich",
+  "lastname": "Galystyan",
+  "group": "Work",
+  "avatar": "https://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg",
+  "birthday": {
+          "year": 1989,
+          "month": 3,
+          "day": 13
+              },
+  "phone": "8(911)007-75-07"
+  }
+  ]
+

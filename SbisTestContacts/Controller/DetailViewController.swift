@@ -12,7 +12,7 @@ import CoreData
 
 class DetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-//    var isEditingContact = false
+    //    var isEditingContact = false
     
     var coreDataStack: CoreDataStack!
     
@@ -20,11 +20,20 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     var human: Human? {
         didSet {
-            let image = UIImage(data: (human?.avatarPhoto as? Data)!)
-            imageView.image = image
+            if human?.avatarPhoto != nil {
+                if let image = UIImage(data: (human?.avatarPhoto as Data?)!) {
+                    self.imageView.image = image
+                } else {
+                    self.imageView.image = UIImage(named: "profileImage")
+                }
+            } else {
+                self.imageView.image = UIImage(named: "profileImage")
+            }
+
             nameLabel.text = human.unwrapThreeOptionalString(firstData: human?.surName, secondData: human?.name, thirdData: human?.secondName)
             setUpDetailTextLabel()
             setUpPhones()
+            
         }
     }
     
@@ -46,7 +55,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     }()
     
     let detailLabel: UILabel = {
-       let detail = UILabel()
+        let detail = UILabel()
         detail.translatesAutoresizingMaskIntoConstraints = false
         detail.textAlignment = .center
         return detail
@@ -54,8 +63,8 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     lazy var callGesture = UITapGestureRecognizer(target: self, action: #selector(handleMakeCall))
     
-    let phoneLabel: UILabel = {
-       let phone = UILabel()
+    let phoneLabel: CopyLabel = {
+        let phone = CopyLabel()
         phone.translatesAutoresizingMaskIntoConstraints = false
         phone.textAlignment = .center
         phone.textColor = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
@@ -70,7 +79,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     lazy var imageView: UIImageView = {
-       let img = UIImageView()
+        let img = UIImageView()
         img.translatesAutoresizingMaskIntoConstraints = false
         img.contentMode = .scaleToFill
         img.layer.cornerRadius = 50
@@ -123,10 +132,28 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
         self.navigationItem.rightBarButtonItem = barButtonItem
         phoneLabel.gestureRecognizers = [callGesture]
         workPhoneLabel.gestureRecognizers = [callGesture]
+        
+        phoneLabel.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture)))
     }
     
-    func presentDelegate(text: String) {
-        nameLabel.text = text
+    @objc func handleLongPressGesture(sender: UIGestureRecognizer) {
+            guard sender.state == .began, let senderView = sender.view, let superView = sender.view?.superview else {
+                return
+            }
+            
+            senderView.becomeFirstResponder()
+        
+            let saveMenuItem = UIMenuItem(title: "Сохранить", action: #selector(saveTapped))
+
+            UIMenuController.shared.menuItems = [saveMenuItem]
+            UIMenuController.shared.setTargetRect(senderView.frame, in: superView)
+            UIMenuController.shared.setMenuVisible(true, animated: true)
+       
+    }
+    
+    @objc func saveTapped() {
+        phoneLabel.copy(sender: nil)
+        phoneLabel.resignFirstResponder()
     }
     
     func setUpUI() {
@@ -168,7 +195,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
         workPhoneLabel.widthAnchor.constraint(equalTo: nameLabel.widthAnchor).isActive = true
         workPhoneLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
     }
-
+    
     //    MARK: AlertController
     @objc func handleActionButton(_ sender: UIBarButtonItem) {
         
@@ -198,7 +225,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
         } else {
             self.present(alertController, animated: true, completion: nil)
         }
-
+        
     }
     
     
@@ -207,15 +234,13 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     @objc fileprivate func handleSaveAction() {
-        switch human?.isFreand {
-        case true: saveFriendEntity()
-            masterVC?.sorting()
-            removeUIElements()
-        case false: saveCollegaEntity()
-            masterVC?.sorting()
-            removeUIElements()
-        default: print("Error saving")
-        }
+                switch human?.group {
+                case "Work": saveCollegaEntity()
+                    removeUIElements()
+                case "Friends": saveFriendEntity()
+                    removeUIElements()
+                default: print("Error saving")
+                }
     }
     
     @objc func handleCancelAction() {
@@ -227,11 +252,11 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
         nameLabel.isHidden = false
         phoneLabel.isHidden = false
         detailLabel.isHidden = false
-        if (human?.isFreand)! {
-            workPhoneLabel.isHidden = true
-        } else {
-            workPhoneLabel.isHidden = false
-        }
+                if human?.group == "Freands" {
+                    workPhoneLabel.isHidden = true
+                } else {
+                    workPhoneLabel.isHidden = false
+                }
         extName?.removeFromSuperview()
         extPhone?.removeFromSuperview()
         extDetail?.removeFromSuperview()
@@ -260,53 +285,68 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     fileprivate func setUpDetailTextLabel() {
-        if let isFreand = human?.isFreand {
-            if  isFreand {
-                detailLabel.text = "День рождения: " + (human?.bDay)!
-            } else {
-                detailLabel.text = "Должность: " + (human?.workState)!
-            }
-        }
+                if let human = human {
+                    if  human.group == "Friends" {
+                        if let bDay = human.bDay {
+                            detailLabel.text = "День рождения: " + bDay
+                        }
+                    } else {
+                        if let doljnost = human.doljnost {
+                            detailLabel.text = "Должность: " + doljnost
+                        }
+                    }
+                }
     }
     
     fileprivate func setUpPhones() {
-        let index = human?.phoneNumbers?.count
         
-        for i in 0..<index! {
-            if let phoneNum = human?.phoneNumbers![i] as? PhoneNumber {
-                if !phoneNum.isWorkPhone {
-                    if let number = phoneNum.phone {
-                        phoneLabel.text = number
-                    }
+        if let phones = human?.phones?.allObjects as? [Phonenumber] {
+            if let phone = phones.first {
+                if !phone.isWorkPhone {
+                    phoneLabel.text = phone.phone
                 } else {
-                    if let phoneNumber = phoneNum.phone {
-                        setUpWoringPhoneLabel()
-                        workPhoneLabel.text = phoneNumber
-                    }
+                    setUpWoringPhoneLabel()
+                    workPhoneLabel.text = phone.phone
                 }
             }
         }
     }
     
     fileprivate func setUpPhonesForEdit() -> String{
-        let index = human?.phoneNumbers?.count
-        var numberToReturn: String = ""
-        for i in 0..<index! {
-            if let phoneNum = human?.phoneNumbers![i] as? PhoneNumber {
-                if !phoneNum.isWorkPhone {
-                    if let number = phoneNum.phone {
-                        numberToReturn = number
-                    }
-                } else {
-                    if let phoneNumber = phoneNum.phone {
-                        
-                        numberToReturn = phoneNumber
-                    }
-                }
+                var numberToReturn: String = ""
+        
+        if let phones = human?.phones?.allObjects as? [Phonenumber] {
+            if let phone = phones.first {
+                numberToReturn = phone.phone ?? ""
             }
         }
         return numberToReturn
     }
+    
+    lazy var datePicker: UIDatePicker = {
+        let datePick = UIDatePicker()
+        datePick.datePickerMode = .date
+        datePick.locale = Locale(identifier: "ru")
+        return datePick
+    }()
+    
+    @objc func handleShowDatePicker() {
+        print("Date picker")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        extDetail?.text = dateFormatter.string(from: datePicker.date)
+        extDetail?.resignFirstResponder()
+    }
+    
+    let toolBar: UIToolbar = {
+        let bar = UIToolbar(frame: CGRect(x: 0.0, y: 0.0, width: 320, height: 44))
+        bar.tintColor = .gray
+        let doneButton = UIBarButtonItem(title: "Готово", style: UIBarButtonItemStyle.plain, target: self, action: #selector(handleShowDatePicker))
+        let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        bar.items = [space, doneButton]
+        return bar
+    }()
 }
 
 
@@ -333,39 +373,44 @@ extension DetailViewController {
         view.addSubview(extName!)
         extName?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         extName?.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10).isActive = true
-        extName?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        extName?.heightAnchor.constraint(equalToConstant: 24).isActive = true
         extName?.widthAnchor.constraint(equalToConstant: view.frame.size.width - 100).isActive = true
         extName?.text = human?.name
         
         view.addSubview(extSecondName!)
         extSecondName?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         extSecondName?.topAnchor.constraint(equalTo: (extName?.bottomAnchor)!, constant: 10).isActive = true
-        extSecondName?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        extSecondName?.heightAnchor.constraint(equalToConstant: 24).isActive = true
         extSecondName?.widthAnchor.constraint(equalToConstant: view.frame.size.width - 100).isActive = true
         extSecondName?.text = human?.secondName
         
         view.addSubview(extSurName!)
         extSurName?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         extSurName?.topAnchor.constraint(equalTo: (extSecondName?.bottomAnchor)!, constant: 10).isActive = true
-        extSurName?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        extSurName?.heightAnchor.constraint(equalToConstant: 24).isActive = true
         extSurName?.widthAnchor.constraint(equalToConstant: view.frame.size.width - 100).isActive = true
         extSurName?.text = human?.surName
         
         view.addSubview(extDetail!)
         extDetail?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         extDetail?.topAnchor.constraint(equalTo: (extSurName?.bottomAnchor)!, constant: 10).isActive = true
-        extDetail?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        extDetail?.heightAnchor.constraint(equalToConstant: 24).isActive = true
         extDetail?.widthAnchor.constraint(equalToConstant: view.frame.size.width - 100).isActive = true
-        if (human?.isFreand)! {
-            extDetail?.text = human?.bDay
-        } else {
-            extDetail?.text = human?.workState
-        }
+                if human?.group == "Friends" || human?.group == "All" {
+                    extDetail?.text = human?.bDay
+                    extDetail?.inputView = self.datePicker
+                    extDetail?.inputAccessoryView = self.toolBar
+                } else {
+                    extDetail?.text = human?.doljnost
+                }
+        
+        
+        
         
         view.addSubview(extPhone!)
         extPhone?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         extPhone?.topAnchor.constraint(equalTo: (extDetail?.bottomAnchor)!, constant: 10).isActive = true
-        extPhone?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        extPhone?.heightAnchor.constraint(equalToConstant: 24).isActive = true
         extPhone?.widthAnchor.constraint(equalToConstant: view.frame.size.width - 100).isActive = true
         extPhone?.text = setUpPhonesForEdit()
         
@@ -373,13 +418,13 @@ extension DetailViewController {
         view.addSubview(extWorkPhone!)
         extWorkPhone?.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         extWorkPhone?.topAnchor.constraint(equalTo: (extPhone?.bottomAnchor)!, constant: 10).isActive = true
-        extWorkPhone?.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        extWorkPhone?.heightAnchor.constraint(equalToConstant: 24).isActive = true
         extWorkPhone?.widthAnchor.constraint(equalToConstant: view.frame.size.width - 100).isActive = true
         extWorkPhone?.text = setUpPhonesForEdit()
         extWorkPhone?.alpha = 0.0
-        if !(human?.isFreand)! {
-            extWorkPhone?.alpha = 1.0
-        }
+            if !(human?.group == "Friends") {
+                extWorkPhone?.alpha = 1.0
+            }
         
         view.addSubview(saveButton)
         
@@ -403,11 +448,11 @@ extension DetailViewController {
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGetImageAction)))
         nameLabel.text = (extSurName?.text)! + " " + (extName?.text)! + " " + (extSecondName?.text)!
         phoneLabel.text = extPhone?.text
-        if (human?.isFreand)! {
-            detailLabel.text = "День рождения: " + (extDetail?.text)!
-        } else {
-            detailLabel.text = "Должность: " + (extDetail?.text)!
-        }
+                if human?.group == "Friends" {
+                    detailLabel.text = "День рождения: " + (extDetail?.text)!
+                } else {
+                    detailLabel.text = "Должность: " + (extDetail?.text)!
+                }
         
         
         
@@ -415,12 +460,12 @@ extension DetailViewController {
         phoneLabel.isHidden = false
         detailLabel.isHidden = false
         
-        if (human?.isFreand)! {
-            workPhoneLabel.isHidden = true
-        } else {
-            workPhoneLabel.text = extWorkPhone?.text
-            workPhoneLabel.isHidden = false
-        }
+                if human?.group == "Friends" {
+                    workPhoneLabel.isHidden = true
+                } else {
+                    workPhoneLabel.text = extWorkPhone?.text
+                    workPhoneLabel.isHidden = false
+                }
         extName?.removeFromSuperview()
         extPhone?.removeFromSuperview()
         extDetail?.removeFromSuperview()
@@ -428,25 +473,6 @@ extension DetailViewController {
         cancelEditingButton.removeFromSuperview()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

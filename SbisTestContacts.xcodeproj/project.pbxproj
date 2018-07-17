@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A301DB8820F7E07E00074BBD /* Phonenumber+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A301DB8420F7E07D00074BBD /* Phonenumber+CoreDataClass.swift */; };
+		A301DB8920F7E07E00074BBD /* Phonenumber+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A301DB8520F7E07D00074BBD /* Phonenumber+CoreDataProperties.swift */; };
+		A301DB8A20F7E07E00074BBD /* Human+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A301DB8620F7E07E00074BBD /* Human+CoreDataClass.swift */; };
+		A301DB8B20F7E07E00074BBD /* Human+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A301DB8720F7E07E00074BBD /* Human+CoreDataProperties.swift */; };
+		A322B0CE20F4DFCA00661706 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A322B0CD20F4DFCA00661706 /* UIImageViewExtension.swift */; };
 		A32D55E220C128F80005885D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32D55E120C128F80005885D /* AppDelegate.swift */; };
 		A32D55EA20C128F80005885D /* SbisTestContacts.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A32D55E820C128F80005885D /* SbisTestContacts.xcdatamodeld */; };
 		A32D55EC20C128F90005885D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A32D55EB20C128F90005885D /* Assets.xcassets */; };
@@ -15,22 +20,21 @@
 		A32D561D20C40BD30005885D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32D561C20C40BD30005885D /* DetailViewController.swift */; };
 		A32D562F20C4180D0005885D /* DataSource.json in Resources */ = {isa = PBXBuildFile; fileRef = A32D562E20C4180D0005885D /* DataSource.json */; };
 		A32D563120C422880005885D /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32D563020C422870005885D /* CoreDataStack.swift */; };
+		A3303A1F20F50C7200E99D76 /* OtherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3303A1E20F50C7200E99D76 /* OtherTableViewCell.swift */; };
+		A3303A2120F54FF900E99D76 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3303A2020F54FF900E99D76 /* CustomTextField.swift */; };
 		A35D6BDF20C725A900B8ADA0 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35D6BDE20C725A900B8ADA0 /* AddViewController.swift */; };
 		A35D6BE120C7EF4200B8ADA0 /* AddViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35D6BE020C7EF4200B8ADA0 /* AddViewControllerExtension.swift */; };
 		A35D6BE420C80B9600B8ADA0 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35D6BE320C80B9600B8ADA0 /* UIViewControllerExtension.swift */; };
+		A392D03D20F7BAF2000261E8 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A392D03C20F7BAF2000261E8 /* StringExtension.swift */; };
 		A3A0B4C820C524E00025E433 /* SbisTestContactsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0B4C720C524E00025E433 /* SbisTestContactsTests.swift */; };
 		A3A0B4D020C52C380025E433 /* FriendTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0B4CF20C52C380025E433 /* FriendTableViewCell.swift */; };
 		A3A0B4D220C52C6A0025E433 /* ColleagueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0B4D120C52C6A0025E433 /* ColleagueTableViewCell.swift */; };
 		A3A0B4D420C52C8F0025E433 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0B4D320C52C8F0025E433 /* BaseTableViewCell.swift */; };
 		A3A0B4D620C5378F0025E433 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A0B4D520C5378F0025E433 /* GradientView.swift */; };
-		A3DD383B20C6A82B00563339 /* Email+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD383520C6A82B00563339 /* Email+CoreDataClass.swift */; };
-		A3DD383C20C6A82B00563339 /* Email+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD383620C6A82B00563339 /* Email+CoreDataProperties.swift */; };
-		A3DD383D20C6A82B00563339 /* Human+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD383720C6A82B00563339 /* Human+CoreDataClass.swift */; };
-		A3DD383E20C6A82B00563339 /* Human+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD383820C6A82B00563339 /* Human+CoreDataProperties.swift */; };
-		A3DD383F20C6A82B00563339 /* PhoneNumber+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD383920C6A82B00563339 /* PhoneNumber+CoreDataClass.swift */; };
-		A3DD384020C6A82B00563339 /* PhoneNumber+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DD383A20C6A82B00563339 /* PhoneNumber+CoreDataProperties.swift */; };
+		A3C77B5D20F35B3F009FB6DB /* contacts.json in Resources */ = {isa = PBXBuildFile; fileRef = A3C77B5C20F35B3F009FB6DB /* contacts.json */; };
+		A3C77B5F20F35F65009FB6DB /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C77B5E20F35F65009FB6DB /* Person.swift */; };
 		A3F05F8720C9371F003CD560 /* DetailViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F05F8620C9371F003CD560 /* DetailViewControllerExtension.swift */; };
-		A3F05F8920C95683003CD560 /* TestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F05F8820C95683003CD560 /* TestModel.swift */; };
+		A3F8BACA20FB68A300AA0C8D /* CopyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F8BAC920FB68A300AA0C8D /* CopyLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A301DB8420F7E07D00074BBD /* Phonenumber+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Phonenumber+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A301DB8520F7E07D00074BBD /* Phonenumber+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Phonenumber+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A301DB8620F7E07E00074BBD /* Human+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Human+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A301DB8720F7E07E00074BBD /* Human+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Human+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A322B0CD20F4DFCA00661706 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		A32D55DE20C128F80005885D /* SbisTestContacts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SbisTestContacts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A32D55E120C128F80005885D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A32D55E920C128F80005885D /* SbisTestContacts.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SbisTestContacts.xcdatamodel; sourceTree = "<group>"; };
@@ -54,9 +63,12 @@
 		A32D561C20C40BD30005885D /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A32D562E20C4180D0005885D /* DataSource.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = DataSource.json; sourceTree = "<group>"; };
 		A32D563020C422870005885D /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		A3303A1E20F50C7200E99D76 /* OtherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherTableViewCell.swift; sourceTree = "<group>"; };
+		A3303A2020F54FF900E99D76 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		A35D6BDE20C725A900B8ADA0 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		A35D6BE020C7EF4200B8ADA0 /* AddViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewControllerExtension.swift; sourceTree = "<group>"; };
 		A35D6BE320C80B9600B8ADA0 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		A392D03C20F7BAF2000261E8 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		A3A0B4C520C524E00025E433 /* SbisTestContactsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SbisTestContactsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3A0B4C720C524E00025E433 /* SbisTestContactsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SbisTestContactsTests.swift; sourceTree = "<group>"; };
 		A3A0B4C920C524E00025E433 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -64,14 +76,10 @@
 		A3A0B4D120C52C6A0025E433 /* ColleagueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColleagueTableViewCell.swift; sourceTree = "<group>"; };
 		A3A0B4D320C52C8F0025E433 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		A3A0B4D520C5378F0025E433 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		A3DD383520C6A82B00563339 /* Email+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Email+CoreDataClass.swift"; sourceTree = "<group>"; };
-		A3DD383620C6A82B00563339 /* Email+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Email+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		A3DD383720C6A82B00563339 /* Human+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Human+CoreDataClass.swift"; sourceTree = "<group>"; };
-		A3DD383820C6A82B00563339 /* Human+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Human+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		A3DD383920C6A82B00563339 /* PhoneNumber+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhoneNumber+CoreDataClass.swift"; sourceTree = "<group>"; };
-		A3DD383A20C6A82B00563339 /* PhoneNumber+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhoneNumber+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A3C77B5C20F35B3F009FB6DB /* contacts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contacts.json; sourceTree = "<group>"; };
+		A3C77B5E20F35F65009FB6DB /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		A3F05F8620C9371F003CD560 /* DetailViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewControllerExtension.swift; sourceTree = "<group>"; };
-		A3F05F8820C95683003CD560 /* TestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestModel.swift; sourceTree = "<group>"; };
+		A3F8BAC920FB68A300AA0C8D /* CopyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +131,7 @@
 				A32D55ED20C128F90005885D /* LaunchScreen.storyboard */,
 				A32D55F020C128F90005885D /* Info.plist */,
 				A32D562E20C4180D0005885D /* DataSource.json */,
+				A3C77B5C20F35B3F009FB6DB /* contacts.json */,
 			);
 			path = SbisTestContacts;
 			sourceTree = "<group>";
@@ -130,7 +139,7 @@
 		A32D561E20C40C030005885D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A3F05F8820C95683003CD560 /* TestModel.swift */,
+				A3C77B5E20F35F65009FB6DB /* Person.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -142,6 +151,9 @@
 				A3A0B4D320C52C8F0025E433 /* BaseTableViewCell.swift */,
 				A3A0B4CF20C52C380025E433 /* FriendTableViewCell.swift */,
 				A3A0B4D120C52C6A0025E433 /* ColleagueTableViewCell.swift */,
+				A3303A1E20F50C7200E99D76 /* OtherTableViewCell.swift */,
+				A3303A2020F54FF900E99D76 /* CustomTextField.swift */,
+				A3F8BAC920FB68A300AA0C8D /* CopyLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -161,12 +173,10 @@
 			children = (
 				A35D6BE720C86BA200B8ADA0 /* CoreDataStack */,
 				A32D55E820C128F80005885D /* SbisTestContacts.xcdatamodeld */,
-				A3DD383520C6A82B00563339 /* Email+CoreDataClass.swift */,
-				A3DD383620C6A82B00563339 /* Email+CoreDataProperties.swift */,
-				A3DD383720C6A82B00563339 /* Human+CoreDataClass.swift */,
-				A3DD383820C6A82B00563339 /* Human+CoreDataProperties.swift */,
-				A3DD383920C6A82B00563339 /* PhoneNumber+CoreDataClass.swift */,
-				A3DD383A20C6A82B00563339 /* PhoneNumber+CoreDataProperties.swift */,
+				A301DB8420F7E07D00074BBD /* Phonenumber+CoreDataClass.swift */,
+				A301DB8520F7E07D00074BBD /* Phonenumber+CoreDataProperties.swift */,
+				A301DB8620F7E07E00074BBD /* Human+CoreDataClass.swift */,
+				A301DB8720F7E07E00074BBD /* Human+CoreDataProperties.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -177,6 +187,8 @@
 				A35D6BE320C80B9600B8ADA0 /* UIViewControllerExtension.swift */,
 				A35D6BE020C7EF4200B8ADA0 /* AddViewControllerExtension.swift */,
 				A3F05F8620C9371F003CD560 /* DetailViewControllerExtension.swift */,
+				A322B0CD20F4DFCA00661706 /* UIImageViewExtension.swift */,
+				A392D03C20F7BAF2000261E8 /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -279,6 +291,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3C77B5D20F35B3F009FB6DB /* contacts.json in Resources */,
 				A32D55EF20C128F90005885D /* LaunchScreen.storyboard in Resources */,
 				A32D562F20C4180D0005885D /* DataSource.json in Resources */,
 				A32D55EC20C128F90005885D /* Assets.xcassets in Resources */,
@@ -299,26 +312,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3DD383B20C6A82B00563339 /* Email+CoreDataClass.swift in Sources */,
+				A3F8BACA20FB68A300AA0C8D /* CopyLabel.swift in Sources */,
 				A32D55EA20C128F80005885D /* SbisTestContacts.xcdatamodeld in Sources */,
+				A301DB8B20F7E07E00074BBD /* Human+CoreDataProperties.swift in Sources */,
 				A35D6BE420C80B9600B8ADA0 /* UIViewControllerExtension.swift in Sources */,
 				A3A0B4D620C5378F0025E433 /* GradientView.swift in Sources */,
 				A32D55E220C128F80005885D /* AppDelegate.swift in Sources */,
-				A3DD383C20C6A82B00563339 /* Email+CoreDataProperties.swift in Sources */,
 				A35D6BE120C7EF4200B8ADA0 /* AddViewControllerExtension.swift in Sources */,
-				A3F05F8920C95683003CD560 /* TestModel.swift in Sources */,
 				A3A0B4D020C52C380025E433 /* FriendTableViewCell.swift in Sources */,
+				A301DB8A20F7E07E00074BBD /* Human+CoreDataClass.swift in Sources */,
 				A3A0B4D420C52C8F0025E433 /* BaseTableViewCell.swift in Sources */,
 				A3A0B4D220C52C6A0025E433 /* ColleagueTableViewCell.swift in Sources */,
+				A3C77B5F20F35F65009FB6DB /* Person.swift in Sources */,
+				A301DB8920F7E07E00074BBD /* Phonenumber+CoreDataProperties.swift in Sources */,
+				A3303A1F20F50C7200E99D76 /* OtherTableViewCell.swift in Sources */,
+				A3303A2120F54FF900E99D76 /* CustomTextField.swift in Sources */,
 				A32D561B20C40BA70005885D /* MasterViewController.swift in Sources */,
-				A3DD383D20C6A82B00563339 /* Human+CoreDataClass.swift in Sources */,
 				A3F05F8720C9371F003CD560 /* DetailViewControllerExtension.swift in Sources */,
+				A322B0CE20F4DFCA00661706 /* UIImageViewExtension.swift in Sources */,
+				A301DB8820F7E07E00074BBD /* Phonenumber+CoreDataClass.swift in Sources */,
+				A392D03D20F7BAF2000261E8 /* StringExtension.swift in Sources */,
 				A35D6BDF20C725A900B8ADA0 /* AddViewController.swift in Sources */,
 				A32D563120C422880005885D /* CoreDataStack.swift in Sources */,
-				A3DD384020C6A82B00563339 /* PhoneNumber+CoreDataProperties.swift in Sources */,
 				A32D561D20C40BD30005885D /* DetailViewController.swift in Sources */,
-				A3DD383E20C6A82B00563339 /* Human+CoreDataProperties.swift in Sources */,
-				A3DD383F20C6A82B00563339 /* PhoneNumber+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

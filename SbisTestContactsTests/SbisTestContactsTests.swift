@@ -9,60 +9,109 @@
 
 
 import XCTest
+import CoreData
+
 
 @testable import SbisTestContacts
 
 class SbisTestContactsTests: XCTestCase {
-
-    var conteiner: AllObjects!
+    
+    var appDelegete: AppDelegate!
+    
+    var firstPerson: Person!
+    var secondPerson: Person!
+    var thirdPerson: Person!
+    
+    var firstDay: BirthDay!
+    var secondDay: BirthDay!
+    var thirdDay: BirthDay!
+    
+    var testDataArray: Array<Person> = []
+    
     
     override func setUp() {
         super.setUp()
-
-        conteiner = AllObjects()
         
+        appDelegete = AppDelegate()
+        
+        firstDay = BirthDay(year: 1959, month: 4, day: 23)
+        secondDay = BirthDay(year: 1989, month: 3, day: 4)
+        thirdDay = BirthDay(year: 1989, month: 3, day: 13)
+        
+        
+        firstPerson = Person(name: "Sergey", lastname: "Bogdanov", secondname: nil, group: "Friends", phone: "+79523753625", avatar: nil, birthday: firstDay)
+        secondPerson = Person(name: "Evgeniy", lastname: "Stadnik", secondname: "Dmitrievich", group: nil, phone: "+7 (921) 554 11 99", avatar: nil, birthday: secondDay)
+        thirdPerson = Person(name: "Dmitriy", lastname: "Popov", secondname: "Egorovich", group: "Work", phone: "8(911)007-75-07", avatar: nil, birthday: thirdDay)
+        
+        testDataArray.append(firstPerson)
+        testDataArray.append(secondPerson)
+        testDataArray.append(thirdPerson)
     }
     
     override func tearDown() {
         super.tearDown()
-        conteiner = nil
+        appDelegete = nil
+        firstPerson = nil
+        secondPerson = nil
+        thirdPerson = nil
+        firstDay = nil
+        secondDay = nil
+        thirdDay = nil
     }
     
-    func testGetJSONData() {
-        
-        let objectsCounts = 3
-        
-        let jsonUrl = Bundle.main.url(forResource: "DataSource", withExtension: ".json")
-        
-        do {
-            let jsonData = try Data(contentsOf: jsonUrl!)
-            do {
-                let jsonDictionary = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String : AnyObject]
-                
-                let namesArray = jsonDictionary!["names"] as? NSArray
-                let surnames = jsonDictionary!["surnames"] as? NSArray
-                let secondNames = jsonDictionary!["secondnames"] as? NSArray
-                let isFreand = jsonDictionary!["isFreand"] as? NSArray
-                let bDays = jsonDictionary!["bDays"] as? NSArray
-                let photoName = jsonDictionary!["avatar"] as? String
-                let workState = jsonDictionary!["workState"] as? String
-                let phones = jsonDictionary!["phones"] as? NSArray
-                
-                for index in 0..<namesArray!.count {
-                    if let testModel = TestModel(name: (namesArray![index] as? String)!, surname: (surnames![index] as? String)!, secondname: (secondNames![index] as? String)!, isFreand: (isFreand![index] as! Bool), avatar: photoName!, phone: (phones![index] as? String)!, workPhone: nil, bDay: (bDays![index] as? String)!, workState: workState) {
-                        print(testModel.name)
-                        conteiner.addObject(object: testModel)
-                    }
+    func testParseData() {
+        guard let url = Bundle.main.url(forResource: "contacts", withExtension: ".json") else {fatalError("Bad URL")}
+        for _ in 0...10 {
+            appDelegete.getdataFromJson(by: url) { (persons, error) in
+                if error != nil {
+                    print(error!.localizedDescription)
+                    return
                 }
+                guard let persons = persons else {fatalError("Bad array")}
+                let sortedPersons = persons.sorted(by: {$0.name! < $1.name!})
+                let sortedTestData = self.testDataArray.sorted(by: {$0.name! < $1.name!})
                 
-                XCTAssertEqual(objectsCounts, conteiner.getCount(), "")
-                
-            } catch let err as NSError {
-                print(err.localizedDescription)
+                XCTAssertEqual(sortedPersons.first?.name, sortedTestData.first?.name)
+                print("Ok")
             }
-            
-        } catch let error as NSError {
-            print(error.localizedDescription)
         }
     }
+    
+    func testEncodeData() {
+        let persondata = try? JSONEncoder().encode(testDataArray)
+        
+        guard let url = Bundle.main.url(forResource: "contacts", withExtension: ".json") else {fatalError("Bad URL")}
+        appDelegete.getdataFromJson(by: url) { (persons, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            guard let persons = persons else {fatalError("Bad array")}
+            let dataFromJson = try? JSONEncoder().encode(persons)
+            
+            let sortedPersons = try? JSONDecoder().decode([Person].self, from: persondata!).sorted(by: {$0.phone! < $1.phone!})
+            let sortedTestData = try? JSONDecoder().decode([Person].self, from: dataFromJson!).sorted(by: {$0.phone! < $1.phone!})
+            
+            XCTAssertEqual(sortedPersons?.first?.name, sortedTestData?.first?.name)
+        }
+    }
+    
+    func testObjectEncodeDecode() {
+        print("\n\n123123\n\n")
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -10,30 +10,33 @@ import Foundation
 import UIKit
 
 final class ColleagueTableViewCell: BaseTableViewCell {
-
+    
     override var human: Human? {
         didSet {
-            
-            let imgData = human?.avatarPhoto as Data?
-            avatarImageView.image = UIImage(data: imgData!)
-            
-            fullNameLabel.text = human.unwrapThreeOptionalString(firstData: human?.surName, secondData: human?.name, thirdData: human?.secondName)
-            
-            let index = human?.phoneNumbers?.count
-            
-            for i in 0..<index! {
-                if let phoneNum = human?.phoneNumbers![i] as? PhoneNumber {
-                    if !phoneNum.isWorkPhone {
-                        phoneNumberLabel.text = phoneNum.phone
-                    }
-                    if phoneNum.isWorkPhone{
-                        workPhoneNumber.text = phoneNum.phone
-                    }
+            if human?.url != nil {
+                self.avatarImageView.loadImage(urlString: (human?.url)!)
+            } else {
+                let imgData = human?.avatarPhoto as Data?
+                self.avatarImageView.image = UIImage(data: imgData!)
             }
-        }
+
+            fullNameLabel.text = human.unwrapThreeOptionalString(firstData: human?.surName, secondData: human?.name, thirdData: human?.secondName)
+
+            detailLabel.text = human?.bDay
             
-            detailLabel.text = human?.workState
-            
+            if let phones = self.human?.phones?.allObjects as? [Phonenumber] {
+                if (phones.first?.isWorkPhone)! {
+                    self.workPhoneNumber.text = phones.first?.phone
+                } else {
+                self.phoneNumberLabel.text = phones.first?.phone
+                }
+            }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                if let image = self.avatarImageView.image {
+                    self.human?.avatarPhoto = UIImageJPEGRepresentation(image, 1) as NSData?
+                }
+            }
         }
     }
     
@@ -47,7 +50,7 @@ final class ColleagueTableViewCell: BaseTableViewCell {
     }()
     
     let workPhoneNumber: UILabel = {
-       let workPhone = UILabel()
+        let workPhone = UILabel()
         workPhone.translatesAutoresizingMaskIntoConstraints = false
         workPhone.textAlignment = .left
         workPhone.textColor = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)

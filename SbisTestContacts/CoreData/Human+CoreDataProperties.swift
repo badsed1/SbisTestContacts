@@ -2,7 +2,7 @@
 //  Human+CoreDataProperties.swift
 //  SbisTestContacts
 //
-//  Created by Евгений Стадник on 05.06.2018.
+//  Created by Евгений Стадник on 12.07.2018.
 //  Copyright © 2018 Евгений Стадник. All rights reserved.
 //
 //
@@ -19,82 +19,29 @@ extension Human {
 
     @NSManaged public var avatarPhoto: NSData?
     @NSManaged public var bDay: String?
-    @NSManaged public var isFreand: Bool
+    @NSManaged public var group: String?
     @NSManaged public var name: String?
     @NSManaged public var secondName: String?
     @NSManaged public var surName: String?
-    @NSManaged public var workState: String?
-    @NSManaged public var email: NSOrderedSet?
-    @NSManaged public var phoneNumbers: NSOrderedSet?
+    @NSManaged public var url: String?
+    @NSManaged public var doljnost: String?
+    @NSManaged public var phones: NSSet?
 
 }
 
-// MARK: Generated accessors for email
+// MARK: Generated accessors for phones
 extension Human {
 
-    @objc(insertObject:inEmailAtIndex:)
-    @NSManaged public func insertIntoEmail(_ value: Email, at idx: Int)
+    @objc(addPhonesObject:)
+    @NSManaged public func addToPhones(_ value: Phonenumber)
 
-    @objc(removeObjectFromEmailAtIndex:)
-    @NSManaged public func removeFromEmail(at idx: Int)
+    @objc(removePhonesObject:)
+    @NSManaged public func removeFromPhones(_ value: Phonenumber)
 
-    @objc(insertEmail:atIndexes:)
-    @NSManaged public func insertIntoEmail(_ values: [Email], at indexes: NSIndexSet)
+    @objc(addPhones:)
+    @NSManaged public func addToPhones(_ values: NSSet)
 
-    @objc(removeEmailAtIndexes:)
-    @NSManaged public func removeFromEmail(at indexes: NSIndexSet)
-
-    @objc(replaceObjectInEmailAtIndex:withObject:)
-    @NSManaged public func replaceEmail(at idx: Int, with value: Email)
-
-    @objc(replaceEmailAtIndexes:withEmail:)
-    @NSManaged public func replaceEmail(at indexes: NSIndexSet, with values: [Email])
-
-    @objc(addEmailObject:)
-    @NSManaged public func addToEmail(_ value: Email)
-
-    @objc(removeEmailObject:)
-    @NSManaged public func removeFromEmail(_ value: Email)
-
-    @objc(addEmail:)
-    @NSManaged public func addToEmail(_ values: NSOrderedSet)
-
-    @objc(removeEmail:)
-    @NSManaged public func removeFromEmail(_ values: NSOrderedSet)
-
-}
-
-// MARK: Generated accessors for phoneNumbers
-extension Human {
-
-    @objc(insertObject:inPhoneNumbersAtIndex:)
-    @NSManaged public func insertIntoPhoneNumbers(_ value: PhoneNumber, at idx: Int)
-
-    @objc(removeObjectFromPhoneNumbersAtIndex:)
-    @NSManaged public func removeFromPhoneNumbers(at idx: Int)
-
-    @objc(insertPhoneNumbers:atIndexes:)
-    @NSManaged public func insertIntoPhoneNumbers(_ values: [PhoneNumber], at indexes: NSIndexSet)
-
-    @objc(removePhoneNumbersAtIndexes:)
-    @NSManaged public func removeFromPhoneNumbers(at indexes: NSIndexSet)
-
-    @objc(replaceObjectInPhoneNumbersAtIndex:withObject:)
-    @NSManaged public func replacePhoneNumbers(at idx: Int, with value: PhoneNumber)
-
-    @objc(replacePhoneNumbersAtIndexes:withPhoneNumbers:)
-    @NSManaged public func replacePhoneNumbers(at indexes: NSIndexSet, with values: [PhoneNumber])
-
-    @objc(addPhoneNumbersObject:)
-    @NSManaged public func addToPhoneNumbers(_ value: PhoneNumber)
-
-    @objc(removePhoneNumbersObject:)
-    @NSManaged public func removeFromPhoneNumbers(_ value: PhoneNumber)
-
-    @objc(addPhoneNumbers:)
-    @NSManaged public func addToPhoneNumbers(_ values: NSOrderedSet)
-
-    @objc(removePhoneNumbers:)
-    @NSManaged public func removeFromPhoneNumbers(_ values: NSOrderedSet)
+    @objc(removePhones:)
+    @NSManaged public func removeFromPhones(_ values: NSSet)
 
 }

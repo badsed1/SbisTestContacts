@@ -49,8 +49,8 @@ extension DetailViewController: UITextFieldDelegate {
         return field
     }
     
-    var workPhoneTextField: UITextField {
-        let phone = UITextField()
+    var workPhoneTextField: VSTextField {
+        let phone = VSTextField()
         phone.translatesAutoresizingMaskIntoConstraints = false
         phone.textColor = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
         phone.placeholder = "Введите рабочий номер"
@@ -60,6 +60,7 @@ extension DetailViewController: UITextFieldDelegate {
         phone.layer.cornerRadius = 5
         phone.layer.masksToBounds = true
         phone.delegate = self
+        phone.setFormatting("# (###) ###-##-##", replacementChar: "#")
         return phone
     }
     
@@ -74,8 +75,10 @@ extension DetailViewController: UITextFieldDelegate {
         return detail
     }
     
-    var phoneTextField: UITextField {
-        let phone = UITextField()
+    
+    
+    var phoneTextField: VSTextField {
+        let phone = VSTextField()
         phone.translatesAutoresizingMaskIntoConstraints = false
         phone.keyboardType = .namePhonePad
         phone.textColor = #colorLiteral(red: 0, green: 0.5898008943, blue: 1, alpha: 1)
@@ -85,6 +88,7 @@ extension DetailViewController: UITextFieldDelegate {
         phone.layer.cornerRadius = 5
         phone.layer.masksToBounds = true
         phone.delegate = self
+        phone.setFormatting("# (###) ###-##-##", replacementChar: "#")
         return phone
     }
     

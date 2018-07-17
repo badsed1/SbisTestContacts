@@ -48,71 +48,40 @@ extension AddViewController {
     
     func saveFriendEntity() {
         if nameTextField.text != nil && surNameTextField.text != nil && secondNameTextField.text != nil && detailTextField.text != nil && phoneTextField.text != nil {
-            let humaEntity = NSEntityDescription.entity(forEntityName: "Human", in: coreDataStack.context)
-            let phoneEntity = NSEntityDescription.entity(forEntityName: "PhoneNumber", in: coreDataStack.context)
-            let emailEntity = NSEntityDescription.entity(forEntityName: "Email", in: coreDataStack.context)
-            
-            let humaN = Human(entity: humaEntity!, insertInto: coreDataStack.context)
-            let phone = PhoneNumber(entity: phoneEntity!, insertInto: coreDataStack.context)
-            let email = Email(entity: emailEntity!, insertInto: coreDataStack.context)
-            
+            let humaN = Human(context: coreDataStack.context)
+            let phone = Phonenumber(context: coreDataStack.context)
+
             humaN.avatarPhoto = UIImageJPEGRepresentation(self.imageView.image!, 1) as? NSData
             humaN.bDay = detailTextField.text
-            humaN.isFreand = true
+
             humaN.name = nameTextField.text
             humaN.surName = surNameTextField.text
             humaN.secondName = secondNameTextField.text
-            humaN.workState = nil
+            humaN.group = "Friends"
             phone.isWorkPhone = false
-            phone.phone = phoneTextField.text
-            email.eMail = "badsed1@gmail.com"
-            
-            let phones = humaN.phoneNumbers?.mutableCopy() as? NSMutableOrderedSet
-            let emails = humaN.email?.mutableCopy() as? NSMutableOrderedSet
-            
-            emails?.add(email)
-            phones?.add(phone)
-            humaN.phoneNumbers = phones
-            humaN.email = emails
-            
-            coreDataStack.saveContext()
+            phone.phone = phoneTextField.text.createTruePhoneNumber()
+
+            humaN.phones = NSSet(object: phone)
+
         }
     }
-    
+
     func saveCollegaEntity() {
         if nameTextField.text != nil && surNameTextField.text != nil && secondNameTextField.text != nil && detailTextField.text != nil && phoneTextField.text != nil, workPhoneTextField.text != nil {
-            let humaEntity = NSEntityDescription.entity(forEntityName: "Human", in: coreDataStack.context)
-            let phoneEntity = NSEntityDescription.entity(forEntityName: "PhoneNumber", in: coreDataStack.context)
-            let emailEntity = NSEntityDescription.entity(forEntityName: "Email", in: coreDataStack.context)
-            
-            let humaN = Human(entity: humaEntity!, insertInto: coreDataStack.context)
-            let phone = PhoneNumber(entity: phoneEntity!, insertInto: coreDataStack.context)
-            let workPhone = PhoneNumber(entity: phoneEntity!, insertInto: coreDataStack.context)
-            let email = Email(entity: emailEntity!, insertInto: coreDataStack.context)
-            
-            humaN.avatarPhoto = UIImageJPEGRepresentation(self.imageView.image!, 1) as? NSData
-            humaN.bDay = nil
-            humaN.workState = detailTextField.text
-            humaN.isFreand = false
-            humaN.name = nameTextField.text
-            humaN.surName = surNameTextField.text
-            humaN.secondName = secondNameTextField.text
-            phone.isWorkPhone = false
-            phone.phone = phoneTextField.text
-            workPhone.isWorkPhone = true
-            workPhone.phone = workPhoneTextField.text
-            email.eMail = "badsed1@gmail.com"
-            
-            let phones = humaN.phoneNumbers?.mutableCopy() as? NSMutableOrderedSet
-            let emails = humaN.email?.mutableCopy() as? NSMutableOrderedSet
-            
-            emails?.add(email)
-            phones?.add(phone)
-            phones?.add(workPhone)
-            humaN.phoneNumbers = phones
-            humaN.email = emails
-            
-            coreDataStack.saveContext()
+        let humaN = Human(context: coreDataStack.context)
+        let phone = Phonenumber(context: coreDataStack.context)
+        
+        humaN.avatarPhoto = UIImageJPEGRepresentation(self.imageView.image!, 1) as? NSData
+        humaN.bDay = detailTextField.text
+        
+        humaN.name = nameTextField.text
+        humaN.surName = surNameTextField.text
+        humaN.secondName = secondNameTextField.text
+        humaN.group = "Work"
+        phone.isWorkPhone = true
+        phone.phone = phoneTextField.text.createTruePhoneNumber()
+        
+        humaN.phones = NSSet(object: phone)
         }
     }
     

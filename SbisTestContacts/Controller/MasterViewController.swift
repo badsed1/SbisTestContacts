@@ -10,60 +10,62 @@ import Foundation
 import UIKit
 import CoreData
 
-protocol PresentDetailViewControllerDelegate: AnyObject {
-    func presentDelegate(text: String)
-}
-
 class MasterViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     //  MARK: Variables And Constants
     let cellId = "CellID"
     let cellIDTwo = "CellIDTwo"
+    let cellIDThre = "Cell"
     
     var coreDataStack: CoreDataStack!
     
-    weak var presentDel: PresentDetailViewControllerDelegate?
-    
     var fetchedResultController: NSFetchedResultsController<Human>?
     var humans: [Human] = []
-    
-    lazy var segmentControll: UISegmentedControl = {
-       let segment = UISegmentedControl(items: ["Все контакты","Друзья", "Работа"])
-        segment.frame = CGRect(x: 0.0, y: 0.0, width: 150, height: 35)
-        segment.selectedSegmentIndex = 0
-        segment.addTarget(self, action: #selector(handleSegmentControllAction), for: UIControlEvents.valueChanged)
-        return segment
-    }()
-    
-    @objc func handleSegmentControllAction(_ sender: UISegmentedControl) {
-        sorting()
-    }
-    
-    
-    let dataArray = ["CellID", "CellID", "CellID", "CellID", "CellID", "CellID"]
+
     //    MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(FriendTableViewCell.self, forCellReuseIdentifier: cellId)
-        tableView.register(ColleagueTableViewCell.self, forCellReuseIdentifier: cellIDTwo)
-        tableView.backgroundColor = .white
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: UIBarButtonItemStyle.plain, target: self, action: nil)
-        self.navigationItem.titleView = segmentControll
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(handleCreateContact))
         
+        setUpTableView()
+        setUpNavigation()
+        fetching()
         
-        
+    }
+    
+    fileprivate func fetching() {
         let fetchRequest: NSFetchRequest<Human> = Human.fetchRequest()
         fetchRequest.sortDescriptors = [sortDescription()]
         fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
-        
+        fetchedResultController?.delegate = self
         do {
-           try fetchedResultController?.performFetch()
-            humans = (fetchedResultController?.fetchedObjects)!
+            try fetchedResultController?.performFetch()
+//            humans = (fetchedResultController?.fetchedObjects)!
         } catch let error as NSError {
             print(error.localizedDescription)
         }
+    }
+    
+    fileprivate func setUpTableView() {
+        tableView.register(FriendTableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(ColleagueTableViewCell.self, forCellReuseIdentifier: cellIDTwo)
+        tableView.register(OtherTableViewCell.self, forCellReuseIdentifier: cellIDThre)
+        tableView.backgroundColor = .white
+        tableView.tableFooterView = UIView()
+    }
+    
+    fileprivate func setUpNavigation() {
         
-        fetchedResultController?.delegate = self
+        self.navigationItem.title = "Контакты"
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: nil, style: UIBarButtonItemStyle.plain, target: self, action: nil)
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(handleCreateContact))
+        
+        let sortImage = UIImage(named: "filter")?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        let button = UIButton(type: .custom)
+        button.setImage(sortImage, for: UIControlState.normal)
+        button.addTarget(self, action:#selector(handleSortContacts), for:.touchUpInside)
+        button.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = barButton
     }
     
     @objc fileprivate func handleCreateContact() {
@@ -73,27 +75,57 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         self.present(UINavigationController(rootViewController: addViewController), animated: true, completion: nil)
     }
     
-    func sorting() {
-        let fetchRequest: NSFetchRequest<Human> = Human.fetchRequest()
-        fetchRequest.sortDescriptors = nil
-        fetchRequest.predicate = nil
-        if segmentControll.selectedSegmentIndex == 0 {
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Human.surName), ascending: true)]
-            
-            fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchAndReload()
-        } else if segmentControll.selectedSegmentIndex == 1 {
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Human.isFreand), ascending: true)]
-            fetchRequest.predicate = NSPredicate(format: "%K == true", #keyPath(Human.isFreand))
-            fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchAndReload()
-        } else {
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Human.isFreand), ascending: false)]
-            fetchRequest.predicate = NSPredicate(format: "%K == false", #keyPath(Human.isFreand))
-            fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
-            fetchAndReload()
+    @objc func handleSortContacts() {
+        let alertController = UIAlertController(title: "Контакты", message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        let allAction = UIAlertAction(title: "Все контакты", style: UIAlertActionStyle.default) { (action) in
+            self.sorting(by: "all")
+        }
+        
+        let worcAction = UIAlertAction(title: "Рабочие контакты", style: UIAlertActionStyle.default) { (action) in
+            self.sorting(by: "Work")
+        }
+        
+        let fiendAction = UIAlertAction(title: "Друзья", style: UIAlertActionStyle.default) { (action) in
+            self.sorting(by: "Friends")
+        }
+        
+        let dismissAction = UIAlertAction(title: "Отмена", style: UIAlertActionStyle.cancel, handler: nil)
+        
+        
+        alertController.addAction(allAction)
+        alertController.addAction(worcAction)
+        alertController.addAction(fiendAction)
+        alertController.addAction(dismissAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func sorting(by group: String) {
+        switch group {
+        case "all": allSortingFetchRequest()
+        case "Friends": wkSortingFetchRequest(sortName: "Friends")
+        case "Work": wkSortingFetchRequest(sortName: "Work")
+        default:
+            print("default")
         }
     }
+    
+    func allSortingFetchRequest() {
+        let fetchRequest: NSFetchRequest<Human> = Human.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Human.group), ascending: false)]
+        fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchAndReload()
+    }
+    
+    func wkSortingFetchRequest(sortName: String) {
+        let fetchRequest: NSFetchRequest<Human> = Human.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: #keyPath(Human.group), ascending: false)]
+        fetchRequest.predicate = NSPredicate(format: "%K = %@", "group", sortName)
+        fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
+        fetchAndReload()
+    }
+
     
     func fetchAndReload() {
         do {
@@ -106,17 +138,23 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     
     func sortDescription() -> NSSortDescriptor {
         var sort: NSSortDescriptor {
-                return NSSortDescriptor(key: #keyPath(Human.surName), ascending: false)
+            return NSSortDescriptor(key: #keyPath(Human.surName), ascending: false)
         }
         return sort
     }
 
-    func configuredCell(isFreand: Bool, indexPath: IndexPath) -> BaseTableViewCell {
-        if isFreand {
+    func configuredCell(with human: Human, indexPath: IndexPath) -> BaseTableViewCell {
+        if human.group == "Friends" {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! FriendTableViewCell
+            cell.human = human
+            return cell
+        } else if human.group == "Work"{
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIDTwo, for: indexPath) as! ColleagueTableViewCell
+            cell.human = human
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIDTwo, for: indexPath) as! ColleagueTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIDThre, for: indexPath) as! OtherTableViewCell
+            cell.human = human
             return cell
         }
     }
@@ -137,11 +175,8 @@ extension MasterViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let human = fetchedResultController?.object(at: indexPath)
-        
-        let cell = configuredCell(isFreand: human!.isFreand, indexPath: indexPath)
-        cell.human = human
-        return cell
+        guard let human = fetchedResultController?.object(at: indexPath) else {return UITableViewCell()}
+        return configuredCell(with: human, indexPath: indexPath)
     }
 }
 
@@ -160,8 +195,7 @@ extension MasterViewController {
         detailVC.navigationItem.title = "Detail VC"
         detailVC.coreDataStack = coreDataStack
         detailVC.masterVC = self
-        detailVC.human = fetchedResultController?.object(at: indexPath)
-        
+        detailVC.human = self.fetchedResultController?.object(at: indexPath)
         
         self.showDetailViewController(UINavigationController(rootViewController: detailVC), sender: nil)
         
@@ -183,18 +217,11 @@ extension MasterViewController {
             let humanForDelete = self.fetchedResultController?.object(at: indexPath)
             
             self.coreDataStack.context.delete(humanForDelete!)
-            self.coreDataStack.saveContext()
-            self.sorting()
         }
         deleteAction.backgroundColor = .red
-        
         return [deleteAction]
     }
-
 }
-
-
-
 
 // MARK: NSFetchedResultsControllerDelegate
 extension MasterViewController {
@@ -210,65 +237,34 @@ extension MasterViewController {
             
             if let indexPath = newIndexPath {
                 tableView.insertRows(at: [indexPath], with: .automatic)
+                print("insert item")
             }
             
         case .delete:
-            tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.left)
+            if let indexPath = indexPath {
+                print("deleted item")
+                tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
+            }
             
         case .update:
-            
-            let updatedHuman = fetchedResultController?.object(at: indexPath!)
-            if (updatedHuman?.isFreand)! {
-                let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath!) as! FriendTableViewCell
-                cell.human = updatedHuman
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: cellIDTwo, for: indexPath!) as! ColleagueTableViewCell
-                cell.human = updatedHuman
+            if let indexPath = indexPath{
+                let human = self.fetchedResultController?.object(at: indexPath)
+                let _ = configuredCell(with: human!, indexPath: indexPath)
             }
 
         case .move:
-            tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.none)
-            tableView.insertRows(at: [newIndexPath!], with: UITableViewRowAnimation.middle)
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.none)
+            }
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath], with: UITableViewRowAnimation.middle)
+            }
         }
     }
 
-    
+
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tableView.endUpdates()
     }
-    
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

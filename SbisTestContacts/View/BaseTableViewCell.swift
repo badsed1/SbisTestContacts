@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class BaseTableViewCell: UITableViewCell {
+    
+    
     var human: Human?
     
     lazy var gradient: GradientView = {
@@ -100,8 +102,6 @@ class BaseTableViewCell: UITableViewCell {
         detailLabel.centerXAnchor.constraint(equalTo: avatarImageView.centerXAnchor).isActive = true
         detailLabel.widthAnchor.constraint(equalToConstant: 90).isActive = true
         detailLabel.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        
-        
     }
 }
 
