@@ -72,13 +72,21 @@ class BaseTableViewCell: UITableViewCell {
         
         gradient.topAnchor.constraint(equalTo: topAnchor).isActive = true
         gradient.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        gradient.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        gradient.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        if #available(iOS 11.0, *) {
+            gradient.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
+            gradient.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        } else {
+            gradient.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+            gradient.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        }
+        
         
         addSubview(avatarImageView)
         
         avatarImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        if #available(iOS 11.0, *) {
+        avatarImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        }
         avatarImageView.heightAnchor.constraint(equalToConstant: 70).isActive = true
         avatarImageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
         

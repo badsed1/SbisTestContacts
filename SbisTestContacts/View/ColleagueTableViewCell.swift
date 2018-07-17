@@ -68,7 +68,11 @@ final class ColleagueTableViewCell: BaseTableViewCell {
         addSubview(workTitleLabel)
         
         workTitleLabel.topAnchor.constraint(equalTo: phoneNumberLabel.bottomAnchor, constant: 5).isActive = true
-        workTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        if #available(iOS 11.0, *) {
+            workTitleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
+        } else {
+            workTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        }
         workTitleLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         workTitleLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
         
