@@ -23,6 +23,18 @@ struct Person: Codable, CustomStringConvertible {
     }
 }
 
+extension Person {
+    enum CodingKeys: String, CodingKey {
+        case name
+        case lastname
+        case secondname = "middleame"
+        case group
+        case phone
+        case avatar
+        case birthday
+    }
+}
+
 struct BirthDay: Codable {
     var year: Int?
     var month: Int?

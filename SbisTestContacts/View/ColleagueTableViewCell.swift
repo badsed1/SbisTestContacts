@@ -14,7 +14,7 @@ final class ColleagueTableViewCell: BaseTableViewCell {
     override var human: Human? {
         didSet {
             if human?.url != nil {
-                self.avatarImageView.loadImage(urlString: (human?.url)!)
+//                self.avatarImageView.loadImage(urlString: (human?.url)!)
             } else {
                 let imgData = human?.avatarPhoto as Data?
                 self.avatarImageView.image = UIImage(data: imgData!)
@@ -32,11 +32,11 @@ final class ColleagueTableViewCell: BaseTableViewCell {
                 }
             }
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                if let image = self.avatarImageView.image {
-                    self.human?.avatarPhoto = UIImageJPEGRepresentation(image, 1) as NSData?
-                }
-            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//                if let image = self.avatarImageView.image {
+//                    self.human?.avatarPhoto = UIImageJPEGRepresentation(image, 1) as NSData?
+//                }
+//            }
         }
     }
     
@@ -68,11 +68,13 @@ final class ColleagueTableViewCell: BaseTableViewCell {
         addSubview(workTitleLabel)
         
         workTitleLabel.topAnchor.constraint(equalTo: phoneNumberLabel.bottomAnchor, constant: 5).isActive = true
+        
         if #available(iOS 11.0, *) {
             workTitleLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
         } else {
             workTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
         }
+        
         workTitleLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
         workTitleLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
         

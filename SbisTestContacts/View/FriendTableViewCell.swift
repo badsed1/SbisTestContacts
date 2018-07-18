@@ -15,7 +15,7 @@ final class FriendTableViewCell: BaseTableViewCell {
         
         didSet {
             if human?.url != nil {
-                self.avatarImageView.loadImage(urlString: (human?.url)!)
+//                self.avatarImageView.loadImage(urlString: (human?.url)!)
             } else {
                 let imgData = human?.avatarPhoto as Data?
                 self.avatarImageView.image = UIImage(data: imgData!)
@@ -28,11 +28,11 @@ final class FriendTableViewCell: BaseTableViewCell {
                 self.phoneNumberLabel.text = phones.first?.phone
             }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [unowned avatarImageView] in
-                if let image = avatarImageView.image {
-                    self.human?.avatarPhoto = UIImageJPEGRepresentation(image, 1) as NSData?
-                }
-            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [unowned avatarImageView] in
+//                if let image = avatarImageView.image {
+//                    self.human?.avatarPhoto = UIImageJPEGRepresentation(image, 1) as NSData?
+//                }
+//            }
         }
     }
     
